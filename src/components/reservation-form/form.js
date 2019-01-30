@@ -23,6 +23,8 @@ class Reservation extends React.Component {
         summary: ""
        };
        this.handleSubmit = this.handleSubmit.bind(this);
+       this.observer = props.observer;
+
     }
 
     componentDidMount() {
@@ -40,9 +42,12 @@ class Reservation extends React.Component {
               isLoaded: true,
               error,
               formData: {
-                "userId": 5445,
-                "userName": "John Doe",
-                "emails": "john.doe@domain.com",
+                "user":{
+                  "userId": 5445,
+                  "userName": "John Doe",
+                  "emails": "john.doe@domain.com; johndoe@domain2.org",
+                  "phone": "765-9736, 26888-99872"
+                },
                 "reservations": [
                   {
                     "week": 5,
@@ -137,6 +142,8 @@ class Reservation extends React.Component {
                 ]
               }
             });
+            this.observer.publish("hello",this.state.formData.user);
+
           }
         )
     }
@@ -148,6 +155,7 @@ class Reservation extends React.Component {
      }
  
      handleChange(e) {
+       console.log(e);
        if ((e.target.className).includes('text-field') ) {
             let formData = this.state.formData
             let {week, day, item, weekindex, dayindex} = e.target.dataset;
@@ -176,9 +184,6 @@ class Reservation extends React.Component {
      if(formData){
       return (
         <div>
-          {/* <div className="text-right">
-            <button onClick={this.addCat.bind(this)} type="button" className="btn btn-primary">Add new wizard</button>
-          </div> */}
           <div className="form-container">
             <form onSubmit={this.handleSubmit} onChange={this.handleChange.bind(this)}>
               <WeekBlock fields={formData.reservations}/>

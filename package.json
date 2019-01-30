@@ -35,6 +35,7 @@
     "popper.js": "^1.14.6",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-hot-loader": "^4.3.11"  
+    "react-event-observer": "^0.5.11",
+    "react-hot-loader": "^4.3.11"
   }
 }
