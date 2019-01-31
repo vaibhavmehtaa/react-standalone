@@ -36,6 +36,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-event-observer": "^0.5.11",
-    "react-hot-loader": "^4.3.11"
+    "react-hot-loader": "^4.3.11",
+    "underscore": "^1.9.1"
   }
 }

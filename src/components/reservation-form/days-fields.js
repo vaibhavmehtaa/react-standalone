@@ -25,10 +25,11 @@ class DaysFields extends React.Component {
                                 data-item={val.itemId} 
                                 data-day={activeDay}
                                 data-week={activeWeek}
-                                data-weekindex={weekIndex}
-                                data-dayindex={idx}
+                                data-week-index={weekIndex}
+                                data-day-index={idx}
+                                onChange={()=>{}}
                                 value={val.value} 
-                                className="text-field col-md-4 col-sm-4 col-xs-12" 
+                                className={`text-field col-md-4 col-sm-4 col-xs-12 ${val.isValid ? '':'error'} `} 
                          />
 
                   </div>

@@ -17,10 +17,9 @@ class App extends Component {
       <section>
         <Header observer={this.observer} />
         <div className="clearfix"></div>
-
-        <div class="container body-container">
-            <div class="row">
-              <div class="col-md-12">
+        <div className="container body-container">
+            <div className="row">
+              <div className="col-md-12">
                 <div id="root">
                     <Reservation observer={this.observer} />
                 </div>

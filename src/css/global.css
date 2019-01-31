@@ -28,6 +28,21 @@
     background-color: #cce5ff;
     padding: 5px;
 }
+.error .box-header{
+    color: #721c24;
+    background-color: #f8d7da;
+}
+.inner-block.error .col-md-12{
+    border-color: #f5c6cb;
+}
+.inner-block .list-group .list-group-item{
+    padding: 3px 0;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 0;
+
+}
+
 .inner-block{
     margin: 5px 0;
 }
@@ -109,3 +124,43 @@ input[type="color"]:focus,
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #cce5ff;
   outline: 0 none;
 }
+
+.inner-block textarea.error,
+.inner-block input[type="text"].error,
+.inner-block input[type="password"].error,
+.inner-block input[type="datetime"].error,
+.inner-block input[type="datetime-local"].error,
+.inner-block input[type="date"].error,
+.inner-block input[type="month"].error,
+.inner-block input[type="time"].error,
+.inner-block input[type="week"].error,
+.inner-block input[type="number"].error,
+.inner-block input[type="email"].error,
+.inner-block input[type="url"].error,
+.inner-block input[type="search"].error,
+.inner-block input[type="tel"].error,
+.inner-block input[type="color"].error,
+.inner-block .uneditable-input.error{
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.main-block h5{
+    margin: 5px 0;
+}
+
+.fill-height{
+    position: relative;
+     min-height: 100%;
+     height:100vh;
+   }
+  
+.screen-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Georgia';
+    font-weight: bold
+  }
+  

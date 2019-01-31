@@ -17,7 +17,6 @@ class Header extends React.Component {
 
     componentDidMount(){
         this.observer.subscribe("hello",(data)=>{
-            console.log(data);
             this.user = data;
             this.setState({
                 user: data
@@ -29,10 +28,10 @@ class Header extends React.Component {
         let {userName, phone, emails} = this.state.user;
         return(
             <div className="container-fluid shadow-sm">
-                <div class="container verticle-shadow">
+                <div className="container verticle-shadow">
                     <div className="row">
                         <div className="col-md-4">
-                            <a class="navbar-brand" href="#"><span>Module</span> Name </a>
+                            <a className="navbar-brand" href="#"><span>Module</span> Name </a>
                         </div>
                         <div className="col-md-8 text-right">
                             <div className="header-info-cart">

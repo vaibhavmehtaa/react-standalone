@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
 import WeekBlock from './week-block'
-
+import _ from "underscore";
 class Reservation extends React.Component {
     constructor(props) {
       super(props);
@@ -20,7 +20,7 @@ class Reservation extends React.Component {
              friday: 25
         }],
         formData: undefined,
-        summary: ""
+        summary: "",
        };
        this.handleSubmit = this.handleSubmit.bind(this);
        this.observer = props.observer;
@@ -28,124 +28,119 @@ class Reservation extends React.Component {
     }
 
     componentDidMount() {
-      fetch("https://api.example.com/items")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              items: result.items
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error,
-              formData: {
-                "user":{
-                  "userId": 5445,
-                  "userName": "John Doe",
-                  "emails": "john.doe@domain.com; johndoe@domain2.org",
-                  "phone": "765-9736, 26888-99872"
-                },
-                "reservations": [
+      let dataSource =  {
+          "user" : {
+            "userId": 5445,
+            "userName": "John Doe",
+            "emails": "john.doe@domain.com; johndoe@domain2.org",
+            "phone": "765-9736, 26888-99872"
+        },
+        "reservations": [
+          {
+            "week": 5,
+              "days":{
+                "2019-01-29": [
                   {
-                    "week": 5,
-                      "days":{
-                        "2019-01-29": [
-                          {
-                            "itemId": 3,
-                            "itemName": "Times Of India",
-                            "value": 5,
-                            "validRange": {
-                              "from": 3,
-                              "to": 7
-                              }
-                          },
-                          {
-                            "itemId": 4,
-                            "itemName": "Times Of India 4",
-                            "value": 3,
-                            "validRange": {
-                              "from": 2,
-                              "to": 5
-                              }
-                          }
-                        ],
-                        "2019-01-30": [
-                          {
-                            "itemId": 3,
-                            "itemName": "Times Of India",
-                            "value": 5,
-                            "validRange": {
-                              "from": 3,
-                              "to": 7
-                              }
-                          },
-                          {
-                            "itemId": 4,
-                            "itemName": "Times Of India 4",
-                            "value": 3,
-                            "validRange": {
-                              "from": 2,
-                              "to": 5
-                              }
-                          }
-                        ]
+                    "itemId": 3,
+                    "itemName": "Times Of India",
+                    "value": 5,
+                    "validRange": {
+                      "from": 3,
+                      "to": 7
                       }
                   },
                   {
-                    "week": 6,
-                      "days":{
-                        "2019-02-05": [
-                          {
-                            "itemId": 3,
-                            "itemName": "Times Of India",
-                            "value": 5,
-                            "validRange": {
-                              "from": 3,
-                              "to": 7
-                              }
-                          },
-                          {
-                            "itemId": 4,
-                            "itemName": "Times Of India 4",
-                            "value": 3,
-                            "validRange": {
-                              "from": 2,
-                              "to": 5
-                              }
-                          }
-                        ],
-                        "2019-02-06": [
-                          {
-                            "itemId": 3,
-                            "itemName": "Times Of India",
-                            "value": 5,
-                            "validRange": {
-                              "from": 3,
-                              "to": 7
-                              }
-                          },
-                          {
-                            "itemId": 4,
-                            "itemName": "Times Of India 4",
-                            "value": 3,
-                            "validRange": {
-                              "from": 2,
-                              "to": 5
-                              }
-                          }
-                        ]
+                    "itemId": 4,
+                    "itemName": "Times Of India 4",
+                    "value": 3,
+                    "validRange": {
+                      "from": 2,
+                      "to": 5
+                      }
+                  }
+                ],
+                "2019-01-30": [
+                  {
+                    "itemId": 3,
+                    "itemName": "Times Of India",
+                    "value": 5,
+                    "validRange": {
+                      "from": 3,
+                      "to": 7
+                      }
+                  },
+                  {
+                    "itemId": 4,
+                    "itemName": "Times Of India 4",
+                    "value": 3,
+                    "validRange": {
+                      "from": 2,
+                      "to": 5
                       }
                   }
                 ]
               }
-            });
-            this.observer.publish("hello",this.state.formData.user);
-
+          },
+          {
+            "week": 6,
+              "days":{
+                "2019-02-05": [
+                  {
+                    "itemId": 3,
+                    "itemName": "Times Of India",
+                    "value": 5,
+                    "validRange": {
+                      "from": 3,
+                      "to": 7
+                      }
+                  },
+                  {
+                    "itemId": 4,
+                    "itemName": "Times Of India 4",
+                    "value": 3,
+                    "validRange": {
+                      "from": 2,
+                      "to": 5
+                      }
+                  }
+                ],
+                "2019-02-06": [
+                  {
+                    "itemId": 3,
+                    "itemName": "Times Of India",
+                    "value": 5,
+                    "validRange": {
+                      "from": 3,
+                      "to": 7
+                      }
+                  },
+                  {
+                    "itemId": 4,
+                    "itemName": "Times Of India 4",
+                    "value": 3,
+                    "validRange": {
+                      "from": 2,
+                      "to": 5
+                      }
+                  }
+                ]
+              }
           }
-        )
+        ]
+      };
+      _.each(dataSource.reservations, (w) => {
+        _.each(w.days, (v) => {
+          _.each(v, (item) => {
+            item['isValid'] = true;
+            item['error_msg'] = "";
+          })
+        })
+        
+      })
+      this.setState({
+              formData: dataSource
+      });
+      this.observer.publish("hello", dataSource.user);
     }
  
  
@@ -155,13 +150,16 @@ class Reservation extends React.Component {
      }
  
      handleChange(e) {
-       console.log(e);
        if ((e.target.className).includes('text-field') ) {
             let formData = this.state.formData
-            let {week, day, item, weekindex, dayindex} = e.target.dataset;
+            let {week, day, item, weekIndex, dayIndex} = e.target.dataset;
+            let {min, max} = e.target;
             let value = e.target.value;
-            formData.reservations[weekindex]['days'][day][dayindex]['value'] = value
-            this.setState({ formData }, () => console.log(this.state.formData))
+            let currentInput = formData.reservations[weekIndex]['days'][day][dayIndex];
+            currentInput['isValid'] = (parseInt(value) >= parseInt(min) && parseInt(max) >= parseInt(value));
+            currentInput['error_msg'] = (parseInt(value) >= parseInt(min) && parseInt(max) >= parseInt(value)) ? '': `Number in between ${min} and ${max}.`;
+            currentInput['value'] = value;
+            this.setState({ formData }, () => this.state.formData)
        } else {
          this.setState({ [e.target.name]: e.target.value })
        }
@@ -191,7 +189,7 @@ class Reservation extends React.Component {
                 <div className="label">
                   <label>Comment:</label>
                 </div>
-                <textarea name="summary" value={this.state.summary} />
+                <textarea name="summary" value={this.state.summary} onChange={()=>{}}/>
               </div>
               <input type="submit" className="btn btn-success" value="Submit Changes" />
             </form>
@@ -200,8 +198,10 @@ class Reservation extends React.Component {
        );
      }else{
        return (
-        <div className="">
-          No data found :(
+        <div className="container fill-height">
+          <div className="screen-center">
+            No data found :(
+          </div>
         </div>
        );
      }
