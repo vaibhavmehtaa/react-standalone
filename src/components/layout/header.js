@@ -16,7 +16,7 @@ class Header extends React.Component {
     }
 
     componentDidMount(){
-        this.observer.subscribe("hello",(data)=>{
+        this.observer.subscribe("user-data",(data)=>{
             this.user = data;
             this.setState({
                 user: data

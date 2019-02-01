@@ -6,21 +6,9 @@ class Reservation extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-         cats: [{
-           monday: 1,
-           tuesday: 2,
-           wednesday: 3,
-           thursday: 4,
-           friday: 5
-           },{
-             monday: 20,
-             tuesday: 12,
-             wednesday: 23,
-             thursday: 54,
-             friday: 25
-        }],
         formData: undefined,
         summary: "",
+        invalidInputs: false
        };
        this.handleSubmit = this.handleSubmit.bind(this);
        this.observer = props.observer;
@@ -128,6 +116,7 @@ class Reservation extends React.Component {
           }
         ]
       };
+      
       _.each(dataSource.reservations, (w) => {
         _.each(w.days, (v) => {
           _.each(v, (item) => {
@@ -135,12 +124,12 @@ class Reservation extends React.Component {
             item['error_msg'] = "";
           })
         })
-        
       })
+
       this.setState({
               formData: dataSource
       });
-      this.observer.publish("hello", dataSource.user);
+      this.observer.publish("user-data", dataSource.user);
     }
  
  
@@ -159,26 +148,26 @@ class Reservation extends React.Component {
             currentInput['isValid'] = (parseInt(value) >= parseInt(min) && parseInt(max) >= parseInt(value));
             currentInput['error_msg'] = (parseInt(value) >= parseInt(min) && parseInt(max) >= parseInt(value)) ? '': `Number in between ${min} and ${max}.`;
             currentInput['value'] = value;
-            this.setState({ formData }, () => this.state.formData)
+            this.setState({ formData }, () => {
+              let error = [];
+              _.each(formData.reservations, (w) => {
+                _.each(w.days, (v) => {
+                  let y = _.where(v, {isValid:false});
+                  if(!_.isEmpty(y)) error.push(y);
+                })
+              })
+              this.setState({
+                  invalidInputs: (error.length > 0)
+              }) 
+              return this.state.formData
+            })
        } else {
          this.setState({ [e.target.name]: e.target.value })
        }
      }
  
-     addCat(e) {
-       this.setState((prevState) => ({
-         cats: [...prevState.cats, {
-           monday: "",
-           tuesday: "",
-           wednesday: "",
-           thursday: 4,
-           friday: 5
-           }],
-       }));
-     }
-  
     render() {
-     let {cats, formData} = this.state;
+     let {formData} = this.state;
      if(formData){
       return (
         <div>
@@ -191,7 +180,7 @@ class Reservation extends React.Component {
                 </div>
                 <textarea name="summary" value={this.state.summary} onChange={()=>{}}/>
               </div>
-              <input type="submit" className="btn btn-success" value="Submit Changes" />
+              <input type="submit" className="btn btn-success" value="Submit Changes" disabled={this.state.invalidInputs}/>
             </form>
           </div>
         </div>
