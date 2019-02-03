@@ -163,4 +163,9 @@ input[type="color"]:focus,
     font-family: 'Georgia';
     font-weight: bold
   }
-  
+
+.action-icon{
+    position: absolute;
+    top: 15px;
+    right: 8%;
+}  
