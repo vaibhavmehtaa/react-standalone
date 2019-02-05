@@ -21,6 +21,10 @@ In effect, this is what the project tree should look like:
 	+-- components/
 	    +-- layout/
 	    +-- reservation-form/
+		+-- feature_components
+			.
+			.
+			.
 +-- dist/
 	+-- bundle.js/
 +-- .babelrc
